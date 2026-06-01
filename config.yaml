@@ -1,0 +1,1017 @@
+# OVO-S-Bench evaluation configuration.
+#
+# MODELS is organized by category → series → variants. The flattening logic in
+# `utils.config_utils.resolve_all_models()` produces a `{model_name: config}`
+# dict at runtime — e.g. `qwen3-vl-32b` is the `32b` variant under the
+# `qwen3-vl` series.
+#
+# Conventions:
+#   • `model_id` is the HuggingFace repo id (auto-downloaded on first use).
+#   • `local_path` (when set) overrides `model_id` to point at a pre-downloaded
+#     checkpoint. We've stripped the original cluster-internal paths from this
+#     file — add yours back, or set $OVO_S_MODEL_ROOT to a directory under which
+#     each `model_id` directory lives, and the wrapper will resolve it.
+#   • `provider` selects the wrapper class. See models/__init__.py for API
+#     providers and models/vllm_models.py:_get_offline_registry for offline.
+
+# Model configurations
+# Organized by category with series-level grouping.
+# Use utils.config_utils.resolve_all_models() to flatten into {model_name: config} dict.
+MODELS:
+  api-model:
+    gpt-4o:
+      type: api
+      provider: openai
+      model_id: gpt-4o
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 1024
+
+    gemini-3.1-flash-lite-preview:
+      type: api
+      provider: gemini-native
+      model_id: gemini-3.1-flash-lite-preview
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 1024
+      temperature: 0.3
+      sampling_strategy: fixed
+      nframes: 128
+
+    gemini-3.1-pro-preview:
+      type: api
+      provider: gemini-native
+      model_id: gemini-3.1-pro-preview
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 4096
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+
+    gpt-5.4:
+      type: api
+      provider: openai
+      model_id: gpt-5.4
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 4096
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+
+    grok-4-1-fast-non-reasoning:
+      type: api
+      provider: openai
+      model_id: grok-4-1-fast-non-reasoning
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 16
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+
+    grok-4-1-fast-reasoning:
+      type: api
+      provider: openai
+      model_id: grok-4-1-fast-reasoning
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 4096
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+
+    qwen3.5-397b-a17b-api:
+      type: api
+      provider: openai
+      model_id: qwen3.5-397b-a17b
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 8192
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+      extra_body:
+        enable_thinking: true
+
+    qwen3.5-397b-a17b-non-thinking-api:
+      type: api
+      provider: openai
+      model_id: qwen3.5-397b-a17b
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 64
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+      extra_body:
+        enable_thinking: false
+
+    qwen3-vl-235b-a22b-instruct-api:
+      type: api
+      provider: openai
+      model_id: qwen3-vl-235b-a22b-instruct
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 64
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+
+    qwen3-vl-235b-a22b-thinking-api:
+      type: api
+      provider: openai
+      model_id: qwen3-vl-235b-a22b-thinking
+      max_frames: 128
+      fps: 1
+      frame_size: 512
+      max_tokens: 8192
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+
+  open-source-general-mllm:
+    qwen3-vl:
+      defaults:
+        type: offline
+        provider: qwen
+        max_frames: 128
+        fps: 2
+        frame_size: 512
+        max_tokens: 1024
+        tensor_parallel_size: 2
+        gpu_memory_utilization: 0.85
+        max_images_per_prompt: 128
+        batch_size: 4
+        nframes: 128
+      variants:
+        2b:
+          model_id: Qwen/Qwen3-VL-2B-Instruct
+          tensor_parallel_size: 1
+        4b:
+          model_id: Qwen/Qwen3-VL-4B-Instruct
+        4b-thinking:
+          model_id: Qwen/Qwen3-VL-4B-Thinking
+          tensor_parallel_size: 1
+          enable_thinking: true
+          max_tokens: 8192
+          batch_size: 8
+        8b:
+          model_id: Qwen/Qwen3-VL-8B-Instruct
+        32b:
+          model_id: Qwen/Qwen3-VL-32B-Instruct
+          tensor_parallel_size: 4
+        32b-thinking:
+          model_id: Qwen/Qwen3-VL-32B-Thinking
+          tensor_parallel_size: 4
+          enable_thinking: true
+          max_tokens: 8192
+        30b-a3b:
+          model_id: Qwen/Qwen3-VL-30B-A3B-Instruct
+          tensor_parallel_size: 2
+        235b-a22b:
+          model_id: Qwen/Qwen3-VL-235B-A22B-Instruct
+          tensor_parallel_size: 8
+
+    qwen3.5:
+      defaults:
+        type: offline
+        provider: qwen3.5
+        max_frames: 128
+        fps: 2
+        frame_size: 512
+        max_tokens: 1024
+        gpu_memory_utilization: 0.85
+        max_images_per_prompt: 128
+        batch_size: 4
+        nframes: 128
+        enable_thinking: false
+      variants:
+        0.8b:
+          model_id: Qwen/Qwen3.5-0.8B
+          tensor_parallel_size: 1
+        2b:
+          model_id: Qwen/Qwen3.5-2B
+          tensor_parallel_size: 1
+        4b:
+          model_id: Qwen/Qwen3.5-4B
+          tensor_parallel_size: 2
+        9b:
+          model_id: Qwen/Qwen3.5-9B
+          tensor_parallel_size: 2
+        9b-thinking:
+          model_id: Qwen/Qwen3.5-9B
+          tensor_parallel_size: 2
+          enable_thinking: true
+          max_tokens: 32768
+        4b-thinking:
+          model_id: Qwen/Qwen3.5-4B
+          tensor_parallel_size: 2
+          enable_thinking: true
+          max_tokens: 32768
+        27b:
+          model_id: Qwen/Qwen3.5-27B
+          tensor_parallel_size: 4
+        27b-thinking:
+          model_id: Qwen/Qwen3.5-27B
+          tensor_parallel_size: 4
+          enable_thinking: true
+          max_tokens: 32768
+        35b-a3b:
+          model_id: Qwen/Qwen3.5-35B-A3B
+          tensor_parallel_size: 2
+        122b-a10b:
+          model_id: Qwen/Qwen3.5-122B-A10B
+          tensor_parallel_size: 4
+        122b-a10b-thinking:
+          model_id: Qwen/Qwen3.5-122B-A10B
+          tensor_parallel_size: 4
+          enable_thinking: true
+          max_tokens: 8192
+        397b-a17b:
+          model_id: Qwen/Qwen3.5-397B-A17B
+          tensor_parallel_size: 8
+        397b-a17b-thinking:
+          model_id: Qwen/Qwen3.5-397B-A17B
+          tensor_parallel_size: 8
+          enable_thinking: true
+          max_tokens: 8192
+
+    qwen2.5-vl:
+      defaults:
+        type: offline
+        provider: qwen2.5-vl
+        max_frames: 128
+        fps: 2
+        frame_size: 512
+        max_tokens: 1024
+        gpu_memory_utilization: 0.85
+        max_images_per_prompt: 128
+        batch_size: 4
+        nframes: 128
+      variants:
+        7b:
+          model_id: Qwen/Qwen2.5-VL-7B-Instruct
+          tensor_parallel_size: 1
+
+    qwen2-vl:
+      # Reuse the Qwen2.5-VL wrapper — it falls back gracefully to the older
+      # qwen_vl_utils 2-tuple process_vision_info API that Qwen2-VL needs.
+      # Used as §4.3.4(a) base for Flash-VStream-7B (Flash-VStream's backbone
+      # is Qwen2-VL-7B-Instruct, see models/flash_vstream_models.py).
+      defaults:
+        type: offline
+        provider: qwen2.5-vl
+        max_frames: 128
+        fps: 2
+        frame_size: 512
+        max_tokens: 1024
+        gpu_memory_utilization: 0.85
+        max_images_per_prompt: 128
+        batch_size: 4
+        nframes: 128
+      variants:
+        7b:
+          model_id: Qwen/Qwen2-VL-7B-Instruct
+          tensor_parallel_size: 1
+
+    gemma4:
+      defaults:
+        type: offline
+        provider: gemma4
+        sampling_strategy: fixed
+        max_frames: 128
+        fps: 2
+        frame_size: 512
+        nframes: 128
+        max_tokens: 512
+        temperature: 0.0
+        tensor_parallel_size: 1
+        gpu_memory_utilization: 0.92
+        max_images_per_prompt: 128
+        max_soft_tokens: 70
+        batch_size: 8
+        enable_thinking: false
+        enable_chunked_prefill: true
+        max_model_len: 16384
+        max_num_batched_tokens: 131072
+        max_num_seqs: 16
+        disable_mm_preprocessor_cache: false
+      variants:
+        e2b:
+          model_id: google/gemma-4-E2B-it
+        e4b:
+          model_id: google/gemma-4-E4B-it
+        26b-a4b:
+          model_id: google/gemma-4-26B-A4B-it
+          batch_size: 4
+          max_num_batched_tokens: 65536
+          max_num_seqs: 8
+
+    glm-4.6v:
+      defaults:
+        # Served by local vLLM OpenAI-compatible server; inference.py uses
+        # the existing OpenAI client wrapper with OPENAI_BASE_URL pointed at it.
+        type: api
+        provider: openai
+        model_id: glm-4.6v-flash
+        max_frames: 128
+        fps: 1
+        frame_size: 512
+        max_tokens: 64
+        temperature: 0.0
+        sampling_strategy: fixed
+        nframes: 128
+        batch_size: 1
+        tensor_parallel_size: 1
+        api_workers: 16
+        vllm_server:
+          dtype: bfloat16
+          gpu_memory_utilization: 0.95
+          max_model_len: 65536
+          max_num_seqs: 8
+          max_num_batched_tokens: 131072
+          mm_processor_cache_gb: 8
+          generation_config: vllm
+          limit_mm_per_prompt:
+            image: 128
+            video: 0
+      variants:
+        flash: {}
+        flash-thinking:
+          # GLM-4.6V-Flash with chat-template thinking switch ON (explicit via
+          # extra_body), mirroring the flash-nothink variant pattern.
+          # The default max_tokens=64 (above) is much too small for reasoning;
+          # bump to 16384 and raise vLLM server concurrency for high GPU util.
+          model_id: glm-4.6v-flash
+          max_tokens: 16384
+          temperature: 0.0
+          enable_thinking: true
+          extra_body:
+            chat_template_kwargs:
+              enable_thinking: true
+          api_workers: 32
+          batch_size: 1
+          vllm_server:
+            dtype: bfloat16
+            gpu_memory_utilization: 0.95
+            max_model_len: 65536
+            max_num_seqs: 32
+            max_num_batched_tokens: 131072
+            mm_processor_cache_gb: 8
+            generation_config: vllm
+            limit_mm_per_prompt:
+              image: 128
+              video: 0
+
+    minicpm-v:
+      defaults:
+        type: offline
+        provider: minicpm-v
+        model_id: openbmb/MiniCPM-V-4_5
+        max_frames: 180
+        fps: 3
+        frame_size: 448
+        max_tokens: 1024
+        temperature: 0.0
+        batch_size: 1
+        tensor_parallel_size: 1
+        attn_implementation: sdpa
+        torch_dtype: bfloat16
+        sampling: false
+        num_beams: 1
+        repetition_penalty: 1.05
+        enable_thinking: false
+        use_temporal_ids: true
+        max_slice_nums: 1
+        use_image_id: false
+        max_packing: 3
+        time_scale: 0.1
+      variants:
+        "4.5": {}
+
+    internvl3.5:
+      defaults:
+        type: offline
+        provider: internvl
+        max_frames: 128
+        fps: 2
+        frame_size: 512
+        max_tokens: 1024
+        gpu_memory_utilization: 0.85
+        max_images_per_prompt: 128
+        batch_size: 4
+      variants:
+        1b:
+          model_id: OpenGVLab/InternVL3_5-1B
+          tensor_parallel_size: 1
+        2b:
+          model_id: OpenGVLab/InternVL3_5-2B
+          tensor_parallel_size: 1
+        4b:
+          model_id: OpenGVLab/InternVL3_5-4B
+          tensor_parallel_size: 1
+        30b-a3b:
+          model_id: OpenGVLab/InternVL3_5-30B-A3B
+          tensor_parallel_size: 2
+        8b:
+          model_id: OpenGVLab/InternVL3_5-8B
+          tensor_parallel_size: 2
+        8b-thinking:
+          # Per InternVL3.5 model card: thinking mode uses R1_SYSTEM_PROMPT
+          # (injected by the wrapper when enable_thinking=true) plus
+          # temperature=0.6 + top_p=0.95 to mitigate repetition in the trace.
+          # This is the only deviation from T=0 in the thinking-pair set;
+          # documented as a footnote in paper §4.3.1.
+          # NOTE: must override prompt_style to 'cot' — the default style says
+          # "Respond with ONLY the letter ... Do not include explanation",
+          # which directly contradicts the R1 protocol and collapses the
+          # thinking trace to a single letter answer. Qwen thinking is immune
+          # because its chat template programmatically injects <think>.
+          model_id: OpenGVLab/InternVL3_5-8B
+          tensor_parallel_size: 2
+          enable_thinking: true
+          prompt_style: cot
+          temperature: 0.6
+          top_p: 0.95
+          max_tokens: 16384
+        38b:
+          model_id: OpenGVLab/InternVL3_5-38B
+          tensor_parallel_size: 4
+        38b-u256:
+          # u256 rescue variant: InternVL-3.5-38B has max_position_embeddings
+          # = 40960 (no RoPE scaling) — a hard architectural ceiling. With
+          # default force_image_size=448 each frame consumes 256 visual
+          # tokens, so 256 frames = 65536 > 40960 and vLLM refuses to load.
+          # Lower force_image_size to 224 → 64 tokens/frame → 256 frames =
+          # 16384 vision tokens, well under 40960. Trade-off: lower visual
+          # fidelity per frame (half-res); this is the only way to fit u256.
+          model_id: OpenGVLab/InternVL3_5-38B
+          tensor_parallel_size: 4
+          force_image_size: 224
+          max_images_per_prompt: 256
+          batch_size: 2
+          gpu_memory_utilization: 0.80
+        38b-thinking:
+          # Same R1_SYSTEM_PROMPT + cot user prompt + T=0.6/top_p=0.95 recipe
+          # as 8b-thinking (verified working on 8B smoke run).
+          model_id: OpenGVLab/InternVL3_5-38B
+          tensor_parallel_size: 2
+          enable_thinking: true
+          prompt_style: cot
+          temperature: 0.6
+          top_p: 0.95
+          max_tokens: 16384
+        241b-a28b:
+          model_id: OpenGVLab/InternVL3_5-241B-A28B
+          tensor_parallel_size: 8
+
+    llava-next-video:
+      type: offline
+      provider: llava-next-video
+      model_id: lmms-lab/LLaVA-NeXT-Video-7B
+      max_frames: 24
+      fps: 1
+      frame_size: 336
+      max_tokens: 1024
+      temperature: 0.0
+      conv_template: v1
+      batch_size: 1
+
+    llava-video-7b-qwen2:
+      # §4.3.4(a) base for StreamForest-7B. Vanilla LLaVA-Video-Qwen2 via the
+      # streamingtom provider with use_streamingtom_patch=false — this routes
+      # through StreamingTOM's vendored LLaVA-NeXT loader (which supports the
+      # `grid` mm_newline_position that LLaVA-Video uses) but skips the
+      # StreamingTOM KV-compression patch so we get vanilla LLaVA-Video
+      # behavior.
+      type: offline
+      provider: streamingtom
+      model_id: lmms-lab/LLaVA-Video-7B-Qwen2
+      use_streamingtom_patch: false
+      use_streaming: false
+      conv_template: qwen_1_5
+      loader_model_name: llava_qwen
+      mm_spatial_pool_stride: 2
+      mm_spatial_pool_mode: bilinear
+      max_frames: 64
+      fps: 1
+      frame_size: 384
+      max_tokens: 1024
+      temperature: 0.0
+      batch_size: 1
+
+    llava-onevision-7b-qwen2:
+      # §4.3.4(a) base for StreamingTOM. Vanilla LlavaQwenForCausalLM via the
+      # same streamingtom provider + use_streamingtom_patch=false path as
+      # llava-video-7b-qwen2 above.
+      type: offline
+      provider: streamingtom
+      model_id: lmms-lab/llava-onevision-qwen2-7b-ov
+      use_streamingtom_patch: false
+      use_streaming: false
+      conv_template: qwen_1_5
+      loader_model_name: llava_qwen
+      mm_spatial_pool_stride: 2
+      mm_spatial_pool_mode: bilinear
+      max_frames: 32
+      fps: 1
+      frame_size: 384
+      max_tokens: 1024
+      temperature: 0.0
+      batch_size: 1
+
+    llava-onevision-7b-qwen2-hf:
+      # §4.3.4(a) base for StreamingTOM, served via the vllm-native
+      # LlavaOnevisionForConditionalGeneration path (vllm >= 0.17). Uses the
+      # HF-converted llava-hf/llava-onevision-qwen2-7b-ov-hf checkpoint.
+      type: offline
+      provider: llava-onevision-vllm
+      model_id: llava-hf/llava-onevision-qwen2-7b-ov-hf
+      max_frames: 32
+      max_images_per_prompt: 32
+      fps: 1
+      frame_size: 384
+      max_tokens: 1024
+      temperature: 0.0
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.85
+      sampling_strategy: fixed
+      nframes: 32
+      batch_size: 4
+
+  streaming-general-mllm:
+    streaming-vlm:
+      type: offline
+      provider: streaming-vlm
+      model_id: mit-han-lab/StreamingVLM
+      model_base: Qwen2_5
+      max_frames: 128
+      fps: 2
+      frame_size: 512
+      max_tokens: 1024
+      temperature: 0.0
+      attn_implementation: flash_attention_2
+      batch_size: 1
+
+    streamforest:
+      type: offline
+      provider: streamforest
+      model_id: MCG-NJU/StreamForest-Qwen2-7B
+      conv_template: qwen_2
+      attn_implementation: sdpa
+      max_frames: 64
+      max_frames_num: 64
+      fps: 1
+      frame_size: 384
+      max_tokens: 1024
+      temperature: 0.0
+      time_msg: short
+      token_strategy: single
+      batch_size: 1
+
+    infinitevl:
+      type: offline
+      provider: infinitevl
+      model_id: HiLight-Capture/InfiniteVL-4B-LongSFT
+      max_frames: 128
+      fps: 2
+      frame_size: 448
+      max_tokens: 1024
+      temperature: 0.0
+      stream_fps: 1
+      batch_size: 1
+
+    flash-vstream-qwen-7b:
+      type: offline
+      provider: flash-vstream
+      model_id: zhang9302002/Flash-VStream-Qwen-7b
+      max_frames: 128
+      fps: 2
+      frame_size: 512
+      max_pixels: 50176
+      max_tokens: 128
+      temperature: 0.0
+      attn_implementation: flash_attention_2
+      torch_dtype: bfloat16
+      batch_size: 1
+
+  token-compression-method:
+    hermes:
+      defaults:
+        type: offline
+        provider: hermes
+        model_id: Qwen/Qwen2.5-VL-7B-Instruct
+        max_frames: 128
+        fps: 1
+        frame_size: 512
+        max_tokens: 128
+        temperature: 0.0
+        kv_size: 6000
+        sample_fps: 0.5
+        encode_chunk_size: 16
+        streaming: true
+        mc_max_new_tokens: 16
+        open_max_new_tokens: 256
+        batch_size: 1
+        tensor_parallel_size: 1
+      variants:
+        base: {}
+        n128:
+          # Uniform-frames ablation: bypass video-streaming, consume the
+          # project's pre-cached fixed-128 frames via inference(frames, prompt).
+          use_streaming: false
+          sampling_strategy: fixed
+          nframes: 128
+          max_frames: 128
+        n256:
+          use_streaming: false
+          sampling_strategy: fixed
+          nframes: 256
+          max_frames: 256
+
+    infinipot:
+      defaults:
+        type: offline
+        provider: infinipot
+        model_id: Qwen/Qwen2.5-VL-7B-Instruct
+        max_frames: 128
+        fps: 1
+        frame_size: 512
+        max_tokens: 128
+        temperature: 0.0
+        block_size: 32
+        compress_frame_num: 24
+        compression_method: infinipot-v
+        tar_ratio: 0.5
+        query_ratio: 0.25
+        adaptive_pooling: false
+        max_frames_num: 768
+        sample_fps: 1.0
+        batch_size: 1
+      variants:
+        base: {}
+        n128:
+          # Uniform-frames ablation / 4.3 image-option fallback: bypass the
+          # upstream video-path streaming path and consume project-cached
+          # fixed-128 frames via inference(frames, prompt[, option_images]).
+          use_streaming: false
+          sampling_strategy: fixed
+          nframes: 128
+          max_frames: 128
+
+    fluxmem:
+      defaults:
+        type: offline
+        provider: fluxmem
+        model_id: Qwen/Qwen2.5-VL-7B-Instruct
+        max_frames: 256
+        fps: 1
+        frame_size: 512
+        max_tokens: 128
+        temperature: 0.0
+        short_frames: 8
+        medium_frames: 64
+        sample_fps: 1.0
+        min_pixels: 12544
+        max_pixels: 401408
+        min_frames: 4
+        max_num_frames: 256
+        time_window_size: 256
+        frame_sampling: uniform
+        batch_size: 1
+        tensor_parallel_size: 1
+      variants:
+        base: {}
+        n128:
+          # Uniform-frames ablation: bypass video-streaming, consume the
+          # project's pre-cached fixed-128 frames via inference(frames, prompt).
+          use_streaming: false
+          sampling_strategy: fixed
+          nframes: 128
+          max_frames: 128
+          max_num_frames: 128
+        n256:
+          use_streaming: false
+          sampling_strategy: fixed
+          nframes: 256
+          max_frames: 256
+          max_num_frames: 256
+
+    streamingtom:
+      type: offline
+      provider: streamingtom
+      model_id: lmms-lab/llava-onevision-qwen2-7b-ov
+      max_frames: 128
+      fps: 1
+      frame_size: 336
+      max_tokens: 128
+      temperature: 0.0
+      stream_fps: 1.0
+      encoder_batch_size: 32
+      ctr_retain_tokens: 50
+      ctr_similarity_threshold: 0.9
+      ctr_k: 7
+      ctr_beta: 0.6
+      conv_template: qwen_1_5
+      loader_model_name: llava_qwen
+      mm_spatial_pool_stride: 2
+      mm_spatial_pool_mode: bilinear
+      oqm_enable_quantization: true
+      oqm_quantization_bits: 4
+      oqm_retrieval_max_tokens: 12544
+      oqm_sliding_window_size: 4800
+      oqm_init_token_count: 14
+      batch_size: 1
+
+  open-source-spatial-mllm:
+    cambrian-s:
+      defaults:
+        type: offline
+        provider: cambrian-mllm
+        max_frames: 128
+        fps: 1
+        frame_size: 512
+        max_tokens: 512
+        temperature: 0.0
+        conv_template: qwen_2
+        video_max_frames: 128
+        video_fps: 1
+        miv_token_len: 64
+        si_token_len: 729
+        image_aspect_ratio: anyres
+        anyres_max_subimages: 9
+        num_beams: 1
+      variants:
+        base:
+          model_id: nyu-visionx/Cambrian-S-7B
+          batch_size: 4
+        lfp:
+          model_id: nyu-visionx/Cambrian-S-7B-LFP
+          lfp: true
+          batch_size: 1
+          sensory_window_size: 32
+          surprise_threshold: 0.0
+          compression_downsample_ratio: 2
+          consolidation_method: drop
+          consolidation_mem_budget: 8192
+          retrieval_topk: 1
+
+    sensenova-si:
+      defaults:
+        type: offline
+        provider: internvl
+        max_frames: 128
+        fps: 1
+        frame_size: 448
+        max_tokens: 1024
+        temperature: 0.0
+        gpu_memory_utilization: 0.90
+        max_images_per_prompt: 128
+        max_dynamic_patch: 1
+        batch_size: 4
+        nframes: 128
+        tensor_parallel_size: 1
+      variants:
+        1.5-internvl3-8b:
+          model_id: sensenova/SenseNova-SI-1.5-InternVL3-8B
+
+    cosmos-reason1-7b:
+      # Official ModelScope card recommends vLLM, fps=4, max_tokens>=4096,
+      # and CoT-style <think>/<answer> output for embodied reasoning.
+      type: offline
+      provider: qwen2.5-vl
+      model_id: unsloth/Cosmos-Reason1-7B
+      max_frames: 128
+      fps: 4
+      frame_size: 512
+      max_tokens: 4096
+      temperature: 0.6
+      top_p: 0.95
+      repetition_penalty: 1.05
+      prompt_style: cot
+      system_prompt: |-
+        You are a helpful assistant. Answer the question in the following format: <think>
+        your reasoning
+        </think>
+
+        <answer>
+        your answer
+        </answer>.
+      sampling_strategy: fixed
+      nframes: 128
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.92
+      max_images_per_prompt: 128
+      batch_size: 16
+      max_model_len: 65536
+      max_num_seqs: 16
+      max_num_batched_tokens: 131072
+      enable_chunked_prefill: true
+
+    vebrain:
+      # ModelScope model card is minimal; config.json declares Qwen2.5-VL.
+      type: offline
+      provider: qwen2.5-vl
+      model_id: OpenGVLab/VeBrain
+      max_frames: 128
+      fps: 2
+      frame_size: 512
+      max_tokens: 1024
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.92
+      max_images_per_prompt: 128
+      batch_size: 16
+      max_model_len: 65536
+      max_num_seqs: 16
+      max_num_batched_tokens: 131072
+      enable_chunked_prefill: true
+
+    rynnbrain-8b:
+      # Official card uses Transformers AutoModelForImageTextToText; the
+      # checkpoint config is Qwen3-VL, so this wrapper runs the same chat
+      # template through vLLM for batched OVO-S evaluation.
+      type: offline
+      provider: qwen
+      model_id: DAMO_Academy/RynnBrain-8B
+      max_frames: 128
+      fps: 2
+      frame_size: 512
+      max_tokens: 1024
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.92
+      max_images_per_prompt: 128
+      batch_size: 16
+      max_model_len: 65536
+      max_num_seqs: 16
+      max_num_batched_tokens: 131072
+      enable_chunked_prefill: true
+
+    robobrain2.5-4b:
+      # Official RoboBrain2.5 quickstart wraps the checkpoint in
+      # UnifiedInference; config.json declares Qwen3-VL, enabling vLLM here.
+      type: offline
+      provider: qwen
+      model_id: BAAI/RoboBrain2.5-4B
+      max_frames: 128
+      fps: 2
+      frame_size: 512
+      max_tokens: 1024
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.92
+      max_images_per_prompt: 128
+      batch_size: 24
+      max_model_len: 65536
+      max_num_seqs: 24
+      max_num_batched_tokens: 131072
+      enable_chunked_prefill: true
+
+    robobrain2.5-8b-nv:
+      # Official RoboBrain2.5 quickstart wraps the checkpoint in
+      # UnifiedInference; config.json declares Qwen3-VL, enabling vLLM here.
+      type: offline
+      provider: qwen
+      model_id: BAAI/RoboBrain2.5-8B-NV
+      max_frames: 128
+      fps: 2
+      frame_size: 512
+      max_tokens: 1024
+      temperature: 0.0
+      sampling_strategy: fixed
+      nframes: 128
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.92
+      max_images_per_prompt: 128
+      batch_size: 16
+      max_model_len: 65536
+      max_num_seqs: 16
+      max_num_batched_tokens: 131072
+      enable_chunked_prefill: true
+
+    vst-7b:
+      defaults:
+        type: offline
+        provider: qwen2.5-vl
+        max_frames: 128
+        fps: 2
+        frame_size: 512
+        max_tokens: 1024
+        temperature: 0.0
+        gpu_memory_utilization: 0.92
+        max_images_per_prompt: 128
+        batch_size: 16
+        nframes: 128
+        tensor_parallel_size: 1
+        max_model_len: 65536
+        max_num_seqs: 16
+      variants:
+        sft:
+          model_id: rayruiyang/VST-7B-SFT
+        rl:
+          model_id: rayruiyang/VST-7B-RL
+
+    spatial-mllm:
+      defaults:
+        type: offline
+        provider: spatial-mllm
+        model_id: Diankun/Spatial-MLLM-v1.1-Instruct-820K
+        max_frames: 128
+        fps: 1
+        frame_size: 512
+        max_tokens: 1024
+        temperature: 0.1
+        top_p: 0.001
+        nframes: 128
+        batch_size: 1
+        tensor_parallel_size: 1
+      variants:
+        base: {}
+        w-sa-sampling:
+          sa_sampling: true
+          vggt_model_path: facebook/VGGT-1B
+          sa_candidate_frames: 128
+
+    spatial-ttt:
+      type: offline
+      provider: spatial-ttt
+      model_id: THU-SI/Spatial-TTT-nano
+      max_frames: 128
+      fps: 2
+      frame_size: 512
+      max_tokens: 128
+      temperature: 0.0
+      num_lact_heads: 4
+      w0_w2_low_rank: 0
+      use_fused_kernel: false
+      use_conv_layer: true
+      lact_chunk_size: 2648
+      window_size: 2648
+      lact_layers: "0/1/2/4/5/6/8/9/10/12/13/14/16/17/18/20/21/22/24/25/26"
+      resize_height: 352
+      resize_width: 480
+      batch_size: 1
+      tensor_parallel_size: 1
+
+# Evaluation settings
+EVAL:
+  num_workers: 4
+  save_interval: 5
+  timeout: 120
+  max_retries: 3
+
+# Data paths
+PATHS:
+  annotation_dir: "../annotation"
+  video_base_dir: "../../Datasets/_selected_data"
+  results_dir: "./results"
+
+# Video source mapping
+VIDEO_SOURCES:
+  Sekai: "Sekai"
+  Ego4D: "Ego4D"
+  RoomTour3D: "RoomTour3D"
+  CODa_full: "CODa_full"
+  OmniWorld: "OmniWorld"
+
+# Task definitions
+TASKS:
+  level_1:
+    - "1.1.1"  # Absolute Distance
+    - "1.1.2"  # Relative Physical Scale
+    - "1.1.3"  # Passability Affordance
+    - "1.1.4"  # Viewpoint Height Perception
+    - "1.1.5"  # Containment Judgment
+    - "1.2.1"  # Directional Enumeration
+    - "1.2.2"  # Occlusion Recognition
+    - "1.2.3"  # Support Relation
+    - "1.2.4"  # Containment Relation
+    - "1.2.5"  # Local Topology Description
+    - "1.3.1"  # Ego-motion Translation
+    - "1.3.2"  # Ego-motion Rotation
+    - "1.3.3"  # Object Motion Separation
+  level_2:
+    - "2.1.1"  # Scene Recognition
+    - "2.1.2"  # Re-visit Detection
+    - "2.2.1"  # Out-of-view Localization
+    - "2.2.2"  # State Memory
+    - "2.3.1"  # Temporal Reasoning
+    - "2.3.2"  # Trajectory Backtracing

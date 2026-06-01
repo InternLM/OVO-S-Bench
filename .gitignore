@@ -1,0 +1,45 @@
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Build / dist
+build/
+dist/
+*.egg
+
+# Frame & evidence caches (can grow to hundreds of GB)
+.frame_cache/
+.evidence_frame_cache/
+.cache/
+.infinipot_cache/
+
+# Inference outputs
+results/
+scores/
+
+# Workspace / scratch / backups
+_tmp/
+_backup_*/
+_src/
+_asset/
+_analysis_experiments/
+node_modules/
+package*.json
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Claude Code
+.claude/

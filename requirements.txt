@@ -1,0 +1,20 @@
+# Core
+pyyaml>=6.0
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+pyarrow>=14.0.0
+pandas>=2.0.0
+
+# Image / video processing
+pillow>=10.0.0
+numpy>=1.24.0
+opencv-python-headless>=4.8.0
+decord>=0.6.0  # primary video decoder; falls back to OpenCV when unavailable
+
+# API providers (install only what you use)
+openai>=1.0.0
+anthropic>=0.18.0
+google-generativeai>=0.4.0
+
+# Offline / vLLM models — install via `pip install -r requirements-vllm.txt`
+# (vllm has heavy CUDA dependencies and is kept out of the default install)

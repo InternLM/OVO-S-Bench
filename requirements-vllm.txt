@@ -1,0 +1,9 @@
+# vLLM-based offline inference (Qwen3-VL, InternVL3.5, LLaVA-OneVision, etc.)
+# Install on top of `requirements.txt` when you want to run open-source MLLMs
+# locally instead of going through API providers.
+
+vllm>=0.11.0
+transformers>=4.45.0
+qwen-vl-utils>=0.0.14
+torch>=2.4.0
+accelerate>=0.30.0
