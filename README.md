@@ -20,15 +20,6 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Questions-1680-blue" alt="Questions"/>
-  <img src="https://img.shields.io/badge/Videos-348-purple" alt="Videos"/>
-  <img src="https://img.shields.io/badge/Levels-4-teal" alt="Levels"/>
-  <img src="https://img.shields.io/badge/Task_Types-30-green" alt="Task Types"/>
-  <img src="https://img.shields.io/badge/Datasets-9-yellow" alt="Datasets"/>
-  <img src="https://img.shields.io/badge/Models-38-orange" alt="Models"/>
-</p>
-
-<p align="center">
   <a href="#"><img src="https://img.shields.io/badge/arXiv-coming_soon-b31b1b.svg" alt="arXiv"/></a>
   <a href="https://huggingface.co/datasets/InternLM/OVO-S-Bench"><img src="https://img.shields.io/badge/%F0%9F%A4%97_HuggingFace-Dataset-yellow" alt="HF Dataset"/></a>
   <a href="https://internlm.github.io/OVO-S-Bench/"><img src="https://img.shields.io/badge/%F0%9F%8C%90_Project-Page-blue" alt="Project Page"/></a>
