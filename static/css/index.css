@@ -192,11 +192,11 @@ body {
 
 /* Shrink the dataset-examples carousel */
 .examples-shrink {
-  max-width: 820px;
+  max-width: 1080px;
   margin: 0 auto;
 }
 .examples-shrink .results-carousel .item img {
-  max-height: 480px;
+  max-height: 640px;
   width: auto;
   display: block;
   margin: 0 auto;
