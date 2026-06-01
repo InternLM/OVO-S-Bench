@@ -3,7 +3,7 @@ Spatial-TTT offline inference for OVO-S evaluation.
 Wraps the Spatial-TTT model (Qwen3-VL-2B + LaCT test-time training layers).
 
 Requires:
-    - Spatial-TTT source code at _src/Spatial-TTT/
+    - Spatial-TTT source code at extras_src/Spatial-TTT/ (override via OVO_S_SPATIAL_TTT_SRC)
     - transformers>=4.57, torch, flash-attn, qwen-vl-utils, safetensors, triton
 """
 

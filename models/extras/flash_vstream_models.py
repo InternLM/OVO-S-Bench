@@ -35,9 +35,10 @@ _FLASH_MODELS_ALIAS = "_ovos_flash_vstream_models"
 def _hide_deepspeed_from_transformers():
     """Avoid importing DeepSpeed during Transformers model imports.
 
-    In the spatial-mllm env, importing DeepSpeed on H200 can segfault while it
-    probes CUDA/Triton support. Flash-VStream only needs plain inference here,
-    so make Transformers treat DeepSpeed as unavailable.
+    In some environments, importing DeepSpeed during a Transformers model
+    load can segfault while it probes CUDA/Triton support. Flash-VStream
+    only needs plain inference here, so make Transformers treat DeepSpeed
+    as unavailable.
     """
     original_find_spec = importlib.util.find_spec
 
@@ -227,7 +228,7 @@ class FlashVStreamQwenModel(BaseModel):
 
         if torch.cuda.is_available():
             # Initialize CUDA before importing/loading the custom Flash-VStream
-            # stack.  In this H200 runtime, delayed lazy init can segfault after
+            # stack.  In some GPU runtimes, delayed lazy init can segfault after
             # Transformers/DeepSpeed/PyAV side imports are already loaded.
             torch.cuda.init()
             torch.cuda.current_device()
@@ -266,7 +267,7 @@ class FlashVStreamQwenModel(BaseModel):
         ).eval()
         if torch.cuda.is_available() and self.load_on_cpu_first:
             # Avoid Transformers' device_map allocator warmup, which segfaults
-            # for this custom model in the spatial-mllm H200 runtime.
+            # for this custom model in some GPU runtimes.
             self._model.to(self.device)
         self._processor = flash.FlashVStreamQwen2VLProcessor.from_pretrained(
             processor_path,

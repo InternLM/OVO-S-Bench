@@ -1033,7 +1033,7 @@ def _run_sharded(
             completed_count += len(batch_queries)
             save_results(results, output_path)
     else:
-        # Non-streaming: claim enough work to keep large H200 batches full.
+        # Non-streaming: claim enough work to keep large GPU batches full.
         effective_batch_size = batch_size if batch_size > 0 else model.config.get("batch_size", 1)
         claim_batch_size = (
             max(CLAIM_BATCH_SIZE, effective_batch_size * 2)

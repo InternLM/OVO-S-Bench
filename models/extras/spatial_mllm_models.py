@@ -34,7 +34,7 @@ if _VGGT_EXTERNAL not in sys.path:
 
 @contextmanager
 def _hide_deepspeed_from_transformers():
-    """Avoid DeepSpeed CUDA probes during Transformers imports on H200."""
+    """Avoid DeepSpeed CUDA probes during Transformers imports (can segfault on some GPUs)."""
     class _DeepSpeedBlocker(importlib.abc.MetaPathFinder):
         def find_spec(self, fullname, path=None, target=None):
             if fullname == "deepspeed" or fullname.startswith("deepspeed."):
@@ -73,7 +73,7 @@ def _hide_deepspeed_from_transformers():
     try:
         # Transformers copies is_deepspeed_available into modeling_utils during
         # import. Patch the integration module first so modeling_utils never
-        # reaches `import deepspeed`, which can segfault in this H200 env.
+        # reaches `import deepspeed`, which can segfault on some GPUs.
         try:
             import transformers.integrations.deepspeed as ds_integration
 

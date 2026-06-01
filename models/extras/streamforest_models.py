@@ -11,7 +11,7 @@ Mirrors the upstream `lmms_eval/models/streamforest.py` pipeline:
 
 Requires:
     - conda env: streamforest (or any env with the StreamForest llava package importable)
-    - source tree at _src/StreamForest (added to sys.path lazily)
+    - source tree at extras_src/StreamForest (added to sys.path lazily; override via OVO_S_STREAMFOREST_SRC)
     - flash-attn / sdpa attention available
 """
 

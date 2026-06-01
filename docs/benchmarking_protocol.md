@@ -40,8 +40,7 @@ The frame extractor prefers `decord` (faster, better seek accuracy). If
 decord can't open a file (e.g. AV1 codec), it falls back to OpenCV.
 
 YouTube clips encoded in AV1 may need pre-transcoding to H.264 before
-extraction works on the cv2 fallback — see `scripts/build_master_parquet.py`
-for the list of affected videos.
+extraction works on the cv2 fallback.
 
 ## Online vs. offline split
 

@@ -86,7 +86,7 @@ class _VLLMQwenBase(BaseModel):
 
     @staticmethod
     def _resolve_local_path(path: str) -> str:
-        """Map login-node paths to the rjob container mount when needed."""
+        """Resolve a local checkpoint path, falling back to OVO_S_MODEL_ROOT."""
         if not path:
             return path
         return resolve_runtime_path(path)
