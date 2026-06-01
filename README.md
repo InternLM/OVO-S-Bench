@@ -54,6 +54,22 @@ OVO-S-Bench organizes questions into **four cumulative levels** by the spatial s
 
 The released benchmark comprises **1,680 questions over 348 source videos from 9 datasets**, organized into **30 canonical task types** across four levels. Mean prefix at query time: **8.8 min**. Evidence-span medians by level: **L1 2.0 s · L2 36.8 s · L3 2.0 s · L4 278.7 s** — reflecting the spatial persistence each level demands.
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/InternLM/OVO-S-Bench/webpage/static/examples/taxonomy_examples-1.png" alt="Representative OVO-S-Bench examples" width="92%"/>
+</p>
+
+<p align="center">
+  <em><b>Representative OVO-S-Bench examples.</b> Each card pairs a spatial question with visual evidence, illustrating the progression from current-view perception to allocentric mapping.</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/InternLM/OVO-S-Bench/webpage/static/images/taxonomy_statistics.png" alt="Taxonomy and benchmark statistics" width="92%"/>
+</p>
+
+<p align="center">
+  <em><b>Taxonomy and benchmark statistics.</b> Left: four-level spatial taxonomy. Right: task-family counts, source distribution, and evidence-interval lengths by level.</em>
+</p>
+
 > L4.3 trajectory-matching questions ship their option images **embedded inline** as base64 data URIs in the parquet's `options` column. No separate image-asset download is needed.
 
 ## Benchmark Construction
