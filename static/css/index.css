@@ -129,8 +129,77 @@ body {
   background: #000000;
 }
 
-.eql-cntrb { 
+.eql-cntrb {
   font-size: smaller;
+}
+
+/* Key-findings cards (ESI-Bench-style) */
+.findings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+@media (max-width: 768px) {
+  .findings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.finding-card {
+  background: #ffffff;
+  border: 1px solid #e6ebf0;
+  border-left: 5px solid #0088cc;
+  border-radius: 8px;
+  padding: 1.4rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.finding-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.finding-card .finding-hook {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 2.0rem;
+  font-weight: 700;
+  color: #0088cc;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+.finding-card .finding-title {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.55rem;
+}
+.finding-card .finding-body {
+  font-size: 0.94rem;
+  color: #444;
+  line-height: 1.55;
+  text-align: left;
+}
+.finding-card.accent-purple  { border-left-color: #6f42c1; }
+.finding-card.accent-purple  .finding-hook { color: #6f42c1; }
+.finding-card.accent-teal    { border-left-color: #2ca58d; }
+.finding-card.accent-teal    .finding-hook { color: #2ca58d; }
+.finding-card.accent-orange  { border-left-color: #e07a1f; }
+.finding-card.accent-orange  .finding-hook { color: #e07a1f; }
+.finding-card.accent-red     { border-left-color: #c0392b; }
+.finding-card.accent-red     .finding-hook { color: #c0392b; }
+.finding-card.accent-navy    { border-left-color: #060270; }
+.finding-card.accent-navy    .finding-hook { color: #060270; }
+
+/* Shrink the dataset-examples carousel */
+.examples-shrink {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.examples-shrink .results-carousel .item img {
+  max-height: 480px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 

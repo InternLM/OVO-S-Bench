@@ -111,21 +111,7 @@
 			</div>
 		</section>
 
-		<!-- What's New -->
-		<section class="section hero is-centered">
-			<div class="container is-max-desktop">
-				<div class="columns is-centered has-text-centered">
-					<div class="column is-four-fifths">
-						<h2 class="title is-3">🔥 <b>What's New</b></h2>
-						<div class="content has-text-justified">
-							<li><b>[2026.06.01]</b> <b>OVO-S-Bench</b> project page is live; arXiv preprint, dataset, and evaluation code coming soon.</li>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Teaser (paper Fig. 1) -->
+		<!-- Teaser (paper Fig. 1 from 1_Teaser.pdf) -->
 		<section class="hero teaser">
 			<div class="container is-max-desktop">
 				<div class="hero-body" style="align-items: center;">
@@ -141,7 +127,7 @@
 			</div>
 		</section>
 
-		<!-- Abstract -->
+		<!-- Abstract (single paragraph) -->
 		<section class="section hero is-centered">
 			<div class="container is-max-desktop">
 				<div class="columns is-centered has-text-centered">
@@ -149,27 +135,41 @@
 						<h2 class="title is-3">Abstract</h2>
 						<div class="content has-text-justified">
 							<p>
-								Multimodal agents in robotics, AR, and autonomous driving must reason about places and layouts
-								from continuous egocentric streams, often using evidence outside the current view. Existing
-								benchmarks either evaluate offline over full videos or target events rather than spatial
-								structure. We introduce <b>OVO-S-Bench</b>, a fully human-annotated benchmark for streaming
-								spatial intelligence, comprising <b>1,680 questions over 348 source videos</b>. Annotation
-								involves 12 trained annotators (each also serving as a blind cross-reviewer) across roughly
-								<b>804 person-hours</b> of multi-round quality assurance. Each question carries a query
-								timestamp and an evidence interval, and at evaluation, the model sees only the prefix
-								preceding the query. Questions span four levels of increasing abstraction: instantaneous
-								egocentric perception, spatiotemporal context tracking, spatial simulation and reasoning,
-								and allocentric mapping.
-							</p>
-							<p>
-								Across <b>38 proprietary and open-source MLLMs</b>, Gemini-3.1-Pro trails human experts by
-								<b>27 points (59.2 vs.&nbsp;86.6)</b>, with allocentric mapping as the dominant bottleneck.
-								Notably, streaming and spatially fine-tuned MLLMs underperform their own backbones. We further
-								find that chain-of-thought reasoning amplifies spatial errors when ungrounded in the stream.
-								By exposing these limitations, OVO-S-Bench establishes a demanding testbed for next-generation
-								streaming spatial MLLMs.
+								Multimodal agents in robotics, AR, and autonomous driving must reason about places and
+								layouts from continuous egocentric streams, often using evidence outside the current view.
+								Existing benchmarks either evaluate offline over full videos or target events rather than
+								spatial structure. We introduce <b>OVO-S-Bench</b>, a fully human-annotated benchmark for
+								streaming spatial intelligence, comprising <b>1,680 questions over 348 source videos</b>.
+								Annotation involves 12 trained annotators (each also serving as a blind cross-reviewer)
+								across roughly <b>804 person-hours</b> of multi-round quality assurance. Each question
+								carries a query timestamp and an evidence interval, and at evaluation, the model sees only
+								the prefix preceding the query. Questions span four levels of increasing abstraction:
+								instantaneous egocentric perception, spatiotemporal context tracking, spatial simulation
+								and reasoning, and allocentric mapping. Across <b>38 proprietary and open-source MLLMs</b>,
+								Gemini-3.1-Pro trails human experts by <b>27 points (59.2 vs.&nbsp;86.6)</b>, with
+								allocentric mapping as the dominant bottleneck. Notably, streaming and spatially fine-tuned
+								MLLMs underperform their own backbones. We further find that chain-of-thought reasoning
+								amplifies spatial errors when ungrounded in the stream. By exposing these limitations,
+								OVO-S-Bench establishes a demanding testbed for next-generation streaming spatial MLLMs.
 							</p>
 						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Representative examples (paper Fig. 2) — directly under abstract, esi-bench style -->
+		<section class="hero is-centered" style="padding-bottom: 2.5rem;">
+			<div class="container is-max-desktop">
+				<div class="columns is-centered has-text-centered">
+					<div class="column is-full">
+						<img src="static/examples/taxonomy_examples-1.png"
+							alt="Representative OVO-S-Bench examples (paper Fig. 2)"
+							style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+						<p style="font-size: 0.92em; color: #555; text-align: center; margin-top: 10px;">
+							<b>Representative OVO-S-Bench examples.</b> Each card pairs a spatial question with visual
+							evidence, illustrating the progression from current-view perception to allocentric mapping.
+						</p>
 					</div>
 				</div>
 			</div>
@@ -191,17 +191,17 @@
 				<div class="columns is-centered has-text-centered">
 					<div class="column is-four-fifths">
 						<div class="content has-text-justified">
-							OVO-S-Bench organizes questions into <b>four levels</b> by the spatial state a model must access
-							at query time. The levels progress from evidence directly available in the current view to
-							allocentric map queries that require cross-viewpoint integration, reflecting a gradient of
-							persistence and abstraction.
+							OVO-S-Bench organizes questions into <b>four levels</b> by the spatial state a model must
+							access at query time. The levels progress from evidence directly available in the current
+							view to allocentric map queries that require cross-viewpoint integration, reflecting a
+							gradient of persistence and abstraction.
 							<br><br>
 							<img src="static/images/taxonomy_statistics.png" alt="Taxonomy and benchmark statistics (paper Fig. 3)">
 							<br>
 							<p style="font-size: 0.9em; color: #555; text-align: center;">
-								<b>Taxonomy and benchmark statistics.</b> The left panel gives the four-level spatial taxonomy;
-								the right panels report task-family counts, source distribution, and evidence-interval lengths
-								by level.
+								<b>Taxonomy and benchmark statistics.</b> The left panel gives the four-level spatial
+								taxonomy; the right panels report task-family counts, source distribution, and
+								evidence-interval lengths by level.
 							</p>
 							<br>
 							<ol>
@@ -262,29 +262,29 @@
 								<b>Video sources.</b>
 								OVO-S-Bench draws from <b>9 publicly available sources</b> covering five regimes: indoor
 								walkthroughs (RoomTour3D), egocentric activities (Ego4D), outdoor/world scenes (Sekai,
-								OmniWorld, YouTube walking tours), driving videos (CODa, Honda HDD), and spatially annotated
-								3D environments (ARKitScenes, VSI-Bench).
+								OmniWorld, YouTube walking tours), driving videos (CODa, Honda HDD), and spatially
+								annotated 3D environments (ARKitScenes, VSI-Bench).
 							</p>
 							<p>
 								<b>Human annotators write every item.</b>
-								Annotators with 3D-vision backgrounds choose clips with stable motion, clear viewpoints, and
-								enough spatial variation for the target level. For each item, they record the video, task
-								label, question, options, answer, query timestamp, and evidence interval. Some task types
-								employ specialized construction techniques such as image editing to generate spatial-change
-								contrasts.
+								Annotators with 3D-vision backgrounds choose clips with stable motion, clear viewpoints,
+								and enough spatial variation for the target level. For each item, they record the video,
+								task label, question, options, answer, query timestamp, and evidence interval. Some task
+								types employ specialized construction techniques such as image editing to generate
+								spatial-change contrasts.
 							</p>
 							<p>
 								<b>Streaming setting.</b>
 								The answer must be derivable from the video prefix before the query timestamp. Annotators
-								mark the shortest interval that contains the needed evidence and write distractors that are
-								plausible under the visual context but wrong under the annotated evidence.
+								mark the shortest interval that contains the needed evidence and write distractors that
+								are plausible under the visual context but wrong under the annotated evidence.
 							</p>
 							<p>
 								<b>Quality control removes shortcuts.</b>
 								A text-only LLM probe flags items that leak the answer through wording, common sense, or
-								option asymmetry. A second annotator then cross-reviews each item without seeing the original
-								answer, checking that the answer and evidence interval are sufficient. Recurring problems are
-								folded back into the annotation guideline.
+								option asymmetry. A second annotator then cross-reviews each item without seeing the
+								original answer, checking that the answer and evidence interval are sufficient. Recurring
+								problems are folded back into the annotation guideline.
 							</p>
 						</div>
 					</div>
@@ -292,55 +292,98 @@
 			</div>
 		</section>
 
-		<!-- Key Findings -->
+		<!-- Key Findings (card grid, ESI-Bench style) -->
 		<section class="section hero is-light">
 			<div class="container is-max-desktop">
 				<div class="columns is-centered has-text-centered">
 					<div class="column is-full">
 						<h2 class="title is-3">Key Findings</h2>
+						<p class="subtitle is-6" style="color: #666; margin-top: -0.3rem;">
+							Six observations about the current state of streaming spatial intelligence,
+							from 38 evaluated systems on OVO-S-Bench.
+						</p>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section class="section hero is-centered">
+
+		<section class="section" style="padding-top: 0;">
 			<div class="container is-max-desktop">
-				<div class="columns is-centered has-text-centered">
-					<div class="column is-four-fifths">
-						<div class="content has-text-justified">
-							<ol>
-								<li>
-									<b>Significant Gap with Human Performance.</b>
-									The strongest system Gemini-3.1-Pro reaches 59.2 overall, far below human experts under
-									the same streaming protocol (86.6; 92.2 offline). The best open-source model
-									Qwen3-VL-235B-A22B attains 53.6, trailing human-streaming by 33 points.
-								</li>
-								<li>
-									<b>Allocentric Mapping is the Dominant Bottleneck.</b>
-									L4 is the lowest-scoring level for <b>28 of 34</b> systems. Even the largest open-source
-									backbones drop &gt;10 points from L1&ndash;L3 to L4 (Qwen3-VL-235B-A22B: 10.6,
-									InternVL-3.5-241B-A28B: 13.8).
-								</li>
-								<li>
-									<b>Narrow but Uneven Closed-Source Lead.</b>
-									The closed-source advantage is only 5.6 points overall, narrower than the 10+ point gap
-									reported on recent multimodal benchmarks. On L3, the best open-source backbone exceeds
-									Gemini-3.1-Pro by 5.3 points (61.2 vs.&nbsp;55.9).
-								</li>
-								<li>
-									<b>Specialization Hurts the Backbone.</b>
-									<b>13 of 15</b> streaming, token-compression, and spatially fine-tuned variants score
-									below their vanilla base, regressing most on the cross-frame levels they were designed
-									to help.
-								</li>
-								<li>
-									<b>Chain-of-Thought is Double-Edged.</b>
-									Explicit reasoning aids the cross-frame integration L2 demands (mean &Delta;&nbsp;=&nbsp;+3.9)
-									but degrades clean current-view perception on L1 (mean &Delta;&nbsp;=&nbsp;&minus;1.0) and
-									amplifies hallucinated spatial relations when ungrounded in the stream.
-								</li>
-							</ol>
+				<div class="findings-grid">
+
+					<div class="finding-card accent-red">
+						<div class="finding-hook">27 pts</div>
+						<div class="finding-title">Significant gap with human performance</div>
+						<div class="finding-body">
+							The strongest system <b>Gemini-3.1-Pro</b> reaches <b>59.2</b> overall, far below human
+							experts under the same streaming protocol (<b>86.6</b>; <b>92.2</b> offline). The best
+							open-source model <b>Qwen3-VL-235B-A22B</b> attains <b>53.6</b>, trailing human-streaming by
+							<b>33 points</b>. The Random (31.3) and Text-Only (37.1) baselines fall below all general
+							backbones, confirming the gap reflects genuine visual-streaming difficulty rather than
+							language priors.
 						</div>
 					</div>
+
+					<div class="finding-card accent-purple">
+						<div class="finding-hook">28 / 34</div>
+						<div class="finding-title">Allocentric mapping is the dominant bottleneck</div>
+						<div class="finding-body">
+							<b>L4 is the lowest-scoring level for 28 of 34 systems</b>, with an average gap of
+							<b>9.3%</b> between L1&ndash;L3 and L4. Even the largest open-source backbones drop more than
+							10 points (Qwen3-VL-235B-A22B: 10.6; InternVL-3.5-241B-A28B: 13.8). The six exceptions all
+							have L1 below 41, so their flipped ordering reflects degraded current-view perception rather
+							than competent allocentric mapping.
+						</div>
+					</div>
+
+					<div class="finding-card accent-navy">
+						<div class="finding-hook">+5.6</div>
+						<div class="finding-title">Closed-source advantage is narrow and uneven</div>
+						<div class="finding-body">
+							The closed-source lead is only <b>5.6 points overall</b> (Gemini-3.1-Pro 59.2
+							vs.&nbsp;Qwen3-VL-235B-A22B 53.6), narrower than the 10+ point gap reported on recent video
+							and multimodal benchmarks. The gap is uneven across levels: it widens on memory-heavy L2
+							(+5.9) and narrows on L4 (+4.1); on L3, the best open-source backbone <b>exceeds
+							Gemini-3.1-Pro by 5.3 points</b> (61.2 vs.&nbsp;55.9).
+						</div>
+					</div>
+
+					<div class="finding-card accent-orange">
+						<div class="finding-hook">13 / 15</div>
+						<div class="finding-title">Specialization hurts the backbone</div>
+						<div class="finding-body">
+							No streaming-architecture or spatially fine-tuned variant outperforms its comparable general
+							backbone, and <b>13 of 15</b> lag behind their own base on overall accuracy (median &minus;2.0,
+							range &minus;18.4 to +0.5). <b>L4 is the most uniformly damaged level</b>: 13 of 15 methods
+							regress on allocentric mapping (mean &Delta;&nbsp;=&nbsp;&minus;6.1; Flash-VStream-7B
+							&minus;16.7, Cosmos-Reason1-7B &minus;12.8).
+						</div>
+					</div>
+
+					<div class="finding-card accent-teal">
+						<div class="finding-hook">+3.9 / &minus;1.0</div>
+						<div class="finding-title">Chain-of-thought is double-edged</div>
+						<div class="finding-body">
+							Across paired thinking-mode comparisons, explicit reasoning consistently helps L2 (mean
+							&Delta;&nbsp;=&nbsp;<b>+3.9</b>, 8/9 pairs positive) but shows a small mean drop on L1
+							(mean &Delta;&nbsp;=&nbsp;<b>&minus;1.0</b>, 6/9 pairs negative). A GPT-5.4 judge over wrong
+							traces finds that <b>60&ndash;80% of CoT failures are mis-grounded visual evidence</b>
+							(non-visual + visual-content errors) in GLM-4.6V-Flash, Qwen3-VL, and InternVL-3.5.
+						</div>
+					</div>
+
+					<div class="finding-card">
+						<div class="finding-hook">r &asymp; 0</div>
+						<div class="finding-title">Retention is not the bottleneck</div>
+						<div class="finding-body">
+							For HERMES, StreamingTOM, and FluxMem, per-query Pearson correlation between Evidence Recall
+							and correctness is essentially zero (<b>r &isin; [&minus;0.07, 0.00]</b>). Neither an
+							oracle-evidence sampler nor doubling the frame budget improves over uniform 128 frames by
+							more than +0.3 points. The 27-point gap to human performance therefore <b>does not reduce
+							to a retrieval problem</b> solvable by better frame selection or larger memory.
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</section>
@@ -447,49 +490,7 @@
 			</div>
 		</section>
 
-		<!-- Analysis -->
-		<section class="section hero is-light">
-			<div class="container is-max-desktop">
-				<div class="columns is-centered has-text-centered">
-					<div class="column is-full">
-						<h2 class="title is-3">Analysis</h2>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section class="section hero is-centered">
-			<div class="container is-max-desktop">
-				<div class="columns is-centered">
-					<div class="column is-four-fifths" style="margin: 0 auto;">
-						<h3 class="title is-5 has-text-centered">Chain-of-Thought Failure Modes</h3>
-						<img src="static/images/cot_failures.png" alt="CoT failure-class composition across thinking-mode models">
-						<p style="font-size: 0.9em; color: #555; text-align: center; margin-top: 10px;">
-							<b>Wrong-trace counts (bar length) and error-class composition (segments) across eight
-							thinking-mode models.</b> Non-visual and visual-content errors jointly cover 60&ndash;80% of
-							wrong traces in GLM-4.6V-Flash, Qwen3-VL, and InternVL-3.5 &mdash; failures concentrate on
-							mis-grounded visual evidence rather than reasoning steps.
-						</p>
-					</div>
-				</div>
-
-				<div class="columns is-centered" style="margin-top: 36px;">
-					<div class="column is-four-fifths" style="margin: 0 auto;">
-						<h3 class="title is-5 has-text-centered">Token-Compression Diagnostics</h3>
-						<img src="static/images/fig_compression.png" alt="Token-compression diagnostics: retention vs. correctness">
-						<p style="font-size: 0.9em; color: #555; text-align: center; margin-top: 10px;">
-							<b>(a)</b> Retained 1-s bin density vs.&nbsp;<i>t/t<sub>q</sub></i> (dotted: uniform).
-							<b>(b)</b> Evidence Recall (ER) by level.
-							<b>(c)</b> ER vs.&nbsp;P(correct); legend shows per-method Pearson&nbsp;<i>r</i>.
-							Compression sheds evidence on memory-heavy levels, yet per-query retention does
-							<b>not</b> predict correctness (<i>r</i>&nbsp;&isin;&nbsp;[&minus;0.07, 0.00]).
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Examples carousel -->
+		<!-- Examples carousel (shrunken display area) -->
 		<section class="section hero is-light">
 			<div class="container is-max-desktop">
 				<div class="columns is-centered has-text-centered">
@@ -501,9 +502,8 @@
 		</section>
 		<section class="hero is-small">
 			<div class="hero-body">
-				<div class="container">
+				<div class="container examples-shrink">
 					<div id="results-carousel" class="carousel results-carousel">
-						<div class="item"><img src="static/examples/taxonomy_examples-1.png" alt="Representative L1-L4 examples"></div>
 						<div class="item"><img src="static/examples/appendix_examples-01.png" alt="Example 1"></div>
 						<div class="item"><img src="static/examples/appendix_examples-02.png" alt="Example 2"></div>
 						<div class="item"><img src="static/examples/appendix_examples-03.png" alt="Example 3"></div>
