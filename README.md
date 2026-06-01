@@ -27,42 +27,46 @@ index.html              # single-page site
 static/
   css/                  # Bulma + custom (carried from OVO-Bench template)
   js/                   # carousel + slider scripts
-  images/
-    teaser.png          # Fig. 1 (taxonomy levels overview)
-    taxonomy_levels.png # Fig. 3 (four-level taxonomy diagram)
-    statistics.png      # benchmark statistics
-    construction.png    # construction pipeline
+  images/               # 300 dpi PNGs rasterized from the paper's PDFs
+    teaser.png          # paper Fig. 1 — 1_Teaser.pdf
+    taxonomy_statistics.png  # paper Fig. 3 — 3_Taxonomy_Statistics_Overview.pdf
+    cot_failures.png    # paper Fig. 4 — generated/cot_failures.pdf
+    fig_compression.png # paper Fig. 5 — generated/fig_compression.pdf
+    scaling_curves.png  # appendix — generated/scaling_curves.pdf
+    per_source_heatmap.png  # appendix — per_source_accuracy_heatmap_top12_reported.pdf
     logo.png            # favicon
-  examples/
-    taxonomy_examples-1.png
-    appendix_examples-01..10.png  # carousel slides
+  examples/             # 300 dpi PNG carousel slides
+    taxonomy_examples-1.png        # paper Fig. 2 — 3_Taxonomy_Examples.pdf
+    appendix_examples-01..10.png   # appendix_examples.pdf (10 pages)
 ```
+
+All figures are rasterized at **300 dpi** with `pdftoppm` from the canonical
+PDFs in `6a1629f975a090a05c2cb571/figs/`. Earlier draft PNGs (`teaser_ovo_s_bench-1`,
+`taxonomy_levels-1`, `benchmark_statistics`, `construction_pipeline`, etc.) are
+**not** used — the paper never references them.
 
 ## Section plan and status
 
-| Section            | Status        | Notes                                                  |
+| Section            | Status        | Source / Notes                                         |
 | ------------------ | ------------- | ------------------------------------------------------ |
 | Hero / title       | done          | arXiv / PDF / dataset buttons stubbed (`#`, "soon")    |
-| What's New         | done          | Single 2026-05-29 entry; update on each release        |
-| Teaser             | done          | `figs/generated/teaser_ovo_s_bench-1.png`              |
-| Abstract           | done          | Verbatim from paper Sec. 0                             |
-| Four-level taxonomy| done          | L1–L4 cards with task families                         |
-| Statistics         | done          | Render of benchmark statistics figure                  |
-| Construction       | done          | Pipeline figure + caption                              |
-| Key findings       | done          | 4 highlights from Sec. 5                               |
-| Leaderboard        | **partial**   | Static HTML table copied from paper Tab. 2; needs a    |
-|                    |               | sortable widget and a submission portal once dataset   |
-|                    |               | is live                                                |
-| Examples carousel  | done          | 11 slides (1 taxonomy + 10 appendix examples)          |
-| BibTeX             | placeholder   | Replace with arXiv eprint once posted                  |
+| What's New         | done          | Single 2026-06-01 entry                                |
+| Teaser             | done          | paper Fig. 1                                           |
+| Abstract           | done          | Verbatim from `sec/0_Abstract.tex`                     |
+| Four-level taxonomy| done          | paper Fig. 3 (combined taxonomy + statistics)          |
+| Construction       | done          | Text-only (paper has no construction figure)           |
+| Key findings       | done          | 5 highlights from Sec. 5                               |
+| Leaderboard        | partial       | Tab. 2 transcribed as static HTML; sortable widget +   |
+|                    |               | submission portal pending dataset release              |
+| Analysis           | done          | CoT failures (Fig. 4) + compression diagnostics (Fig. 5)|
+| Examples carousel  | done          | Taxonomy examples (Fig. 2) + 10 appendix examples      |
+| BibTeX             | placeholder   | Replace with arXiv entry once posted                   |
 
 ## TODO before public launch
 
 - [ ] Replace `arXiv` / `Paper` / `Dataset` links with real URLs.
-- [ ] Add `.nojekyll` if any underscore-prefixed paths sneak in (none today).
 - [ ] Swap the BibTeX placeholder for the arXiv entry.
-- [ ] Consider adding: per-level breakdown plots, error-mode (CoT failure) figure,
-      and a sortable/filterable leaderboard backed by a JSON file.
-- [ ] Add a banner / carousel of representative video clips (the paper does not
-      yet ship per-question MP4 thumbnails — generate after dataset release).
-- [ ] Verify author Google-Scholar links (some are placeholders).
+- [ ] Verify author Google-Scholar links (Pengyiang Liu link missing).
+- [ ] Optional: add sortable / filterable leaderboard backed by JSON.
+- [ ] Optional: add scaling-curve and per-source-heatmap figures to the
+      Analysis section once the appendix is referenced from the page.
