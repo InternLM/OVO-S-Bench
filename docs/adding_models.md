@@ -82,8 +82,8 @@ multiple sizes that share a base config.
 ## Test it
 
 ```bash
-python inference.py --model my-model --annotation data/ovo_s_bench_l1_l4.parquet --limit 5
-python score.py --result results/my-model/ovo_s_bench_l1_l4.json
+python inference.py --model my-model --annotation data/ovo_s_bench.parquet --limit 5
+python score.py --result results/my-model/ovo_s_bench.json
 ```
 
 The `--limit 5` flag is the fastest way to confirm the wrapper works

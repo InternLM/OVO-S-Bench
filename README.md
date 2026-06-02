@@ -182,7 +182,7 @@ Layout you should see after download:
 
 ```
 data/
-├── ovo_s_bench_l1_l4.parquet     # questions, ~35 MB
+├── ovo_s_bench.parquet     # questions, ~35 MB
 └── videos/                       # source .mp4 files
     ├── Ego4D/ ...
     ├── RoomTour3D/ ...
@@ -202,13 +202,13 @@ $EDITOR .env       # fill in the provider(s) you'll use
 **API model** (single-process, threaded):
 
 ```bash
-bash scripts/eval_api.sh gpt-4o data/ovo_s_bench_l1_l4.parquet
+bash scripts/eval_api.sh gpt-4o data/ovo_s_bench.parquet
 ```
 
 **Open-source MLLM via vLLM** (multi-GPU auto-sharded; default 128 uniformly-sampled frames per prefix):
 
 ```bash
-GPUS=8 bash scripts/eval_vllm.sh qwen3-vl-32b data/ovo_s_bench_l1_l4.parquet
+GPUS=8 bash scripts/eval_vllm.sh qwen3-vl-32b data/ovo_s_bench.parquet
 ```
 
 Both scripts call `inference.py` then `score.py`. Inference auto-resumes on rerun — interrupted jobs pick up from the last checkpoint.
@@ -227,10 +227,10 @@ Set `*_BASE_URL` in `.env` to point at your proxy or local vLLM server. API prov
 
 All systems are evaluated under a **unified streaming protocol**: each source video is truncated at the annotated query timestamp $t_q$, and the model receives **128 frames uniformly sampled from the resulting prefix** together with the question and multiple-choice options. For streaming-architecture models that implement a native sequential ingestion path, we instead feed the video at each model's published streaming rate and query the resulting compressed state. No model sees frames after $t_q$. Answers are extracted by regular expression without further post-processing.
 
-Per-query responses land under `results/<model>/ovo_s_bench_l1_l4.json`. `score.py` aggregates accuracy by main category and subcategory:
+Per-query responses land under `results/<model>/ovo_s_bench.json`. `score.py` aggregates accuracy by main category and subcategory:
 
 ```bash
-python score.py --result results/gpt-4o/ovo_s_bench_l1_l4.json --verbose
+python score.py --result results/gpt-4o/ovo_s_bench.json --verbose
 ```
 
 For sharded multi-GPU runs, `merge_results.py` consolidates `*_rank{N}.json` shards into a single result file (auto-invoked by `launch.py`).

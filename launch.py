@@ -7,13 +7,13 @@ Calculates the number of inference processes from `--gpus` and the model's
 
 Usage:
     # 8 GPUs, qwen3-vl-32b (tp=2) → 4 processes
-    python launch.py --model qwen3-vl-32b --annotation data/ovo_s_bench_l1_l4.parquet --gpus 8
+    python launch.py --model qwen3-vl-32b --annotation data/ovo_s_bench.parquet --gpus 8
 
     # Dry run (print commands only)
-    python launch.py --model qwen3-vl-32b --annotation data/ovo_s_bench_l1_l4.parquet --gpus 8 --dry-run
+    python launch.py --model qwen3-vl-32b --annotation data/ovo_s_bench.parquet --gpus 8 --dry-run
 
     # With prompt style and sampling strategy
-    python launch.py --model qwen3.5-4b --annotation data/ovo_s_bench_l1_l4.parquet --gpus 8 \\
+    python launch.py --model qwen3.5-4b --annotation data/ovo_s_bench.parquet --gpus 8 \\
         --prompt-style cot --sampling-strategy fixed --nframes 64
 """
 

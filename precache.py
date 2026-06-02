@@ -7,13 +7,13 @@ frames in parallel and write them to .frame_cache/.
 
 Usage:
     # Use model config to determine sampling parameters
-    python precache.py --annotation data/ovo_s_bench_l1_l4.parquet --model qwen3-vl-32b --workers 16
+    python precache.py --annotation data/ovo_s_bench.parquet --model qwen3-vl-32b --workers 16
 
     # Manual parameters
-    python precache.py --annotation data/ovo_s_bench_l1_l4.parquet --strategy fps --max-frames 128 --fps 2 --workers 16
+    python precache.py --annotation data/ovo_s_bench.parquet --strategy fps --max-frames 128 --fps 2 --workers 16
 
     # Fixed-count strategy
-    python precache.py --annotation data/ovo_s_bench_l1_l4.parquet --strategy fixed --nframes 128 --workers 8
+    python precache.py --annotation data/ovo_s_bench.parquet --strategy fixed --nframes 128 --workers 8
 """
 
 import argparse

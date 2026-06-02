@@ -4,7 +4,7 @@
 set -euo pipefail
 
 MODEL="${1:-qwen3-vl-32b}"
-ANNOTATION="${2:-data/ovo_s_bench_l1_l4.parquet}"
+ANNOTATION="${2:-data/ovo_s_bench.parquet}"
 GPUS="${GPUS:-$(nvidia-smi -L | wc -l)}"
 
 python launch.py \

@@ -44,7 +44,7 @@ For batch evaluations across many models, pre-cache once with the
 CPU-only `precache.py` script:
 
 ```bash
-python precache.py --annotation data/ovo_s_bench_l1_l4.parquet --model qwen3-vl-32b --workers 16
+python precache.py --annotation data/ovo_s_bench.parquet --model qwen3-vl-32b --workers 16
 ```
 
 `precache.py` reads the model config to determine the sampling params, but

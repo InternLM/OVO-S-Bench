@@ -12,7 +12,7 @@ Layout you should see:
 
 ```
 data/
-├── ovo_s_bench_l1_l4.parquet       # 1695 questions, ~35 MB
+├── ovo_s_bench.parquet       # 1695 questions, ~35 MB
 └── videos/
     ├── honda/         *.mp4         # L4 trajectory matching source clips
     ├── arkitscenes/   *.mp4
