@@ -1,11 +1,23 @@
 # Benchmark data
 
-The benchmark data — annotations + videos — is hosted on HuggingFace, not in
-this repo.
+The benchmark data — annotations + videos — is hosted outside this repo.
+
+- Hugging Face: <https://huggingface.co/datasets/JoeLeelyf/OVO-S-Bench>
+- ModelScope: <https://modelscope.cn/datasets/JoeLeelyf/OVO-S-Bench/>
+
+The complete benchmark files are currently available from ModelScope:
 
 ```bash
-huggingface-cli download InternLM/OVO-S-Bench \
-    --repo-type dataset --local-dir ./data
+pip install -U modelscope
+python - <<'PY'
+from modelscope.hub.snapshot_download import snapshot_download
+
+snapshot_download(
+    repo_id='JoeLeelyf/OVO-S-Bench',
+    repo_type='dataset',
+    local_dir='./data',
+)
+PY
 ```
 
 Layout you should see:

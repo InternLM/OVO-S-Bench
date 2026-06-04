@@ -20,10 +20,11 @@
 </p>
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/arXiv-soon-b31b1b.svg" alt="arXiv"/></a>
-  <a href="#"><img src="https://img.shields.io/badge/%F0%9F%93%84_Paper-soon-red" alt="Paper"/></a>
+  <a href="https://arxiv.org/abs/2606.03890"><img src="https://img.shields.io/badge/arXiv-2606.03890-b31b1b.svg" alt="arXiv"/></a>
+  <a href="https://arxiv.org/pdf/2606.03890"><img src="https://img.shields.io/badge/Paper-PDF-red" alt="Paper"/></a>
   <a href="https://github.com/InternLM/OVO-S-Bench"><img src="https://img.shields.io/badge/Code-GitHub-181717?logo=github" alt="Code"/></a>
-  <a href="#"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Dataset-soon-yellow" alt="Dataset"/></a>
+  <a href="https://huggingface.co/datasets/JoeLeelyf/OVO-S-Bench"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Page-Hugging_Face-yellow" alt="Hugging Face Page"/></a>
+  <a href="https://modelscope.cn/datasets/JoeLeelyf/OVO-S-Bench/"><img src="https://img.shields.io/badge/Dataset-ModelScope-blue" alt="ModelScope Dataset"/></a>
   <a href="https://internlm.github.io/OVO-S-Bench/"><img src="https://img.shields.io/badge/%F0%9F%8C%90_Project-Page-blue" alt="Project Page"/></a>
 </p>
 
@@ -96,7 +97,7 @@ Six observations about the current state of streaming spatial intelligence, from
 
 ## Leaderboard
 
-Main results under the streaming protocol (multiple-choice accuracy). Numbers replicated from the paper's main results table. Live submission portal will follow once the dataset is released.
+Main results under the streaming protocol (multiple-choice accuracy). Numbers replicated from the paper's main results table. The public dataset release is linked above; a live submission portal will follow.
 
 | Model | Params | L1 | L2 | L3 | L4 | Overall | Rank |
 | --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
@@ -171,11 +172,24 @@ pip install -r requirements-vllm.txt
 
 ### Download the benchmark
 
-The annotations parquet + source videos are hosted on HuggingFace Datasets:
+The release pages are:
+
+- Hugging Face: <https://huggingface.co/datasets/JoeLeelyf/OVO-S-Bench>
+- ModelScope: <https://modelscope.cn/datasets/JoeLeelyf/OVO-S-Bench/>
+
+The complete annotations parquet and source videos are currently available from ModelScope:
 
 ```bash
-pip install -U "huggingface_hub[cli]"
-hf download InternLM/OVO-S-Bench --repo-type dataset --local-dir ./data
+pip install -U modelscope
+python - <<'PY'
+from modelscope.hub.snapshot_download import snapshot_download
+
+snapshot_download(
+    repo_id='JoeLeelyf/OVO-S-Bench',
+    repo_type='dataset',
+    local_dir='./data',
+)
+PY
 ```
 
 Layout you should see after download:
@@ -279,10 +293,13 @@ OVO-S-Bench/
 
 ```bibtex
 @misc{li2026ovosbench,
-  title  = {OVO-S-Bench: A Hierarchical Benchmark for Streaming Spatial Intelligence in Multimodal LLMs},
-  author = {Li, Yifei and Liu, Pengyiang and Zang, Yuhang and Shi, Zhongyue and Fu, Qi and Hao, Hongye and Lu, Jiwen},
-  year   = {2026},
-  note   = {arXiv preprint, to appear}
+  title         = {OVO-S-Bench: A Hierarchical Benchmark for Streaming Spatial Intelligence in Multimodal LLMs},
+  author        = {Li, Yifei and Liu, Pengyiang and Zang, Yuhang and Shi, Zhongyue and Fu, Qi and Hao, Hongye and Lu, Jiwen},
+  year          = {2026},
+  eprint        = {2606.03890},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2606.03890}
 }
 ```
 
