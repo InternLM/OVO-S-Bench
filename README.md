@@ -23,7 +23,7 @@
   <a href="https://arxiv.org/abs/2606.03890"><img src="https://img.shields.io/badge/arXiv-2606.03890-b31b1b.svg" alt="arXiv"/></a>
   <a href="https://arxiv.org/pdf/2606.03890"><img src="https://img.shields.io/badge/Paper-PDF-red" alt="Paper"/></a>
   <a href="https://github.com/InternLM/OVO-S-Bench"><img src="https://img.shields.io/badge/Code-GitHub-181717?logo=github" alt="Code"/></a>
-  <a href="https://huggingface.co/datasets/JoeLeelyf/OVO-S-Bench"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Page-Hugging_Face-yellow" alt="Hugging Face Page"/></a>
+  <a href="https://huggingface.co/papers/2606.03890"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Paper-2606.03890-yellow" alt="HuggingFace Paper"/></a>
   <a href="https://modelscope.cn/datasets/JoeLeelyf/OVO-S-Bench/"><img src="https://img.shields.io/badge/Dataset-ModelScope-blue" alt="ModelScope Dataset"/></a>
   <a href="https://internlm.github.io/OVO-S-Bench/"><img src="https://img.shields.io/badge/%F0%9F%8C%90_Project-Page-blue" alt="Project Page"/></a>
 </p>
