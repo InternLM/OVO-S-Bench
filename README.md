@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://joeleelyf.github.io/">Yifei Li</a><sup>1,2,†</sup> &nbsp;·&nbsp;
-  Pengyiang Liu<sup>3,†</sup> &nbsp;·&nbsp;
+  <a href="https://buaaplay.github.io/">Pengyiang Liu</a><sup>3,†</sup> &nbsp;·&nbsp;
   <a href="https://scholar.google.com/citations?hl=en&user=hW23VKIAAAAJ">Yuhang Zang</a><sup>2,*</sup> &nbsp;·&nbsp;
   Zhongyue Shi<sup>3</sup> &nbsp;·&nbsp;
   Qi Fu<sup>3</sup> &nbsp;·&nbsp;
