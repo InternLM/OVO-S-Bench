@@ -296,14 +296,11 @@ OVO-S-Bench/
 ## BibTeX
 
 ```bibtex
-@misc{li2026ovosbench,
-  title         = {OVO-S-Bench: A Hierarchical Benchmark for Streaming Spatial Intelligence in Multimodal LLMs},
-  author        = {Li, Yifei and Liu, Pengyiang and Zang, Yuhang and Shi, Zhongyue and Fu, Qi and Hao, Hongye and Lu, Jiwen},
-  year          = {2026},
-  eprint        = {2606.03890},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.CV},
-  url           = {https://arxiv.org/abs/2606.03890}
+@inproceedings{li2026ovosbench,
+  title     = {{OVO-S-Bench}: A Hierarchical Benchmark for Streaming Spatial Intelligence in Multimodal {LLM}s},
+  author    = {Li, Yifei and Liu, Pengyiang and Zang, Yuhang and Shi, Zhongyue and Fu, Qi and Hao, Hongye and Lu, Jiwen},
+  booktitle = {Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing},
+  year      = {2026}
 }
 ```
 
